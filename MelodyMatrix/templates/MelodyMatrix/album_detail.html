@@ -1,0 +1,34 @@
+{% extends "base.html" %} 
+{% block content %} 
+  <h1>Title: {{ album.title }}</h1>
+ 
+  <p><strong>Artist:</strong> <a href="{% url 'artist_detail' album.artist.id %}">{{ album.artist }}</a></p> <!-- Artist detail link not yet defined -->
+  <p><strong>About Album:</strong> {{ album.summary }}</p>
+  <p><strong>Genre:</strong> {{ album.genre.all|join:", " }}</p>
+    <p><strong>Duration:</strong> {{ album.duration}}</p>
+    <p><strong>Number of Tracks: {{ album.tracks }}</p>
+
+<h2>Songs:</h2>
+<ul>
+  {% for song in album.songs.all %}
+    <li>{{ song.title }}</li>
+  {% endfor %}
+</ul>
+
+ 
+  <div style="margin-left:20px;margin-top:20px"> 
+    <h4>Copies</h4> 
+ 
+    {% for copy in album.albuminstance_set.all %}
+      <hr> 
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}"> 
+        {{ copy.get_status_display }} 
+      </p> 
+      {% if copy.status != 'a' %} 
+        <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p> 
+      {% endif %} 
+      <p><strong>Format:</strong> {{ copy.format }}</p>
+      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p> 
+    {% endfor %} 
+  </div> 
+{% endblock %} 
