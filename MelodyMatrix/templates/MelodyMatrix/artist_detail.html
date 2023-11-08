@@ -5,6 +5,12 @@
         Date of Birth:  {{ artist.date_of_birth }}  Date of Death:  {{ artist.date_of_death }}
     </pre>
     <p><strong>About Artist:</strong> {{ artist.summary }}</p>
+# Artist images added here
+    <div>
+    {% if artist.artist_image %}
+        <img src="{{ artist.artist_image.url }}">
+    {% endif %}
+    </div>
 
   <!-- List of Albums by this Artist -->
   <h2>Albums</h2>

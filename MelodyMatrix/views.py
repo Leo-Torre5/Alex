@@ -2,6 +2,9 @@ from .models import Album, Artist, AlbumInstance, Genre
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 
 def index(request):
@@ -43,11 +46,22 @@ class AlbumDetailView(LoginRequiredMixin, generic.DetailView):
 
 class ArtistListView(LoginRequiredMixin, generic.ListView):
     model = Artist
+    # This is where
+    fields = ['artist_image']
 
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('artist_list'))
 
 
 class ArtistDetailView(generic.DetailView):
     model = Artist
-
+    fields = ['artist_image']
+#above added the fields artist_image and album_image with the HTTP for the site.
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        return HttpResponseRedirect(reverse('artist_list'))
 
 

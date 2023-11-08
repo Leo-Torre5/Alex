@@ -7,6 +7,13 @@
   <p><strong>Genre:</strong> {{ album.genre.all|join:", " }}</p>
     <p><strong>Duration:</strong> {{ album.duration}}</p>
     <p><strong>Number of Tracks: {{ album.tracks }}</p>
+# Album Images added here
+    <div>
+    {% if album.album_image %}
+        <img src="{{ album.album_image.url }}">
+    {% endif %}
+    </div>
+
 
 <h2>Songs:</h2>
 <ul>

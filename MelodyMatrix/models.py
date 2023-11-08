@@ -18,11 +18,12 @@ class Artist(models.Model):
     artist_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
+    artist_image = models.ImageField(upload_to='images/', null=True, blank=True)
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this artist')
     summary = models.TextField(max_length=2000, help_text='Enter a brief background of the artist', null=True)
 
-    # include an image for an artist - add it in Sprint 2
-    # artist_image = models.ImageField(upload_to='images/', null=True, blank=True))
+    # included an image for an artist - added it in Sprint 2
+    #    artist_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     class Meta:
         ordering = ['artist_name']
@@ -39,6 +40,8 @@ class Artist(models.Model):
 class Album(models.Model):
     """Model representing an Album."""
     title = models.CharField(max_length=200, null=True)
+    album_image = models.ImageField(upload_to='images/', null=True, blank=True)
+
     # album_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     # Foreign Key used because album can only have one artist, but artists can have many albums
