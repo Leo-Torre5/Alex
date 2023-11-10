@@ -1,0 +1,43 @@
+<!-- templates/search_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if search_query %}
+        <p>Search query: {{ search_query }}</p>
+        {% if artist_results %}
+            <h2>Artists</h2>
+            <ul>
+                {% for artist in artist_results %}
+                    <li><a href="{% url 'artist_detail' artist.id %}">{{ artist.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if album_results %}
+            <h2>Albums</h2>
+            <ul>
+                {% for album in album_results %}
+                    <li><a href="{% url 'album_detail' album.id %}">{{ album.title }} by {{ album.artist.name }} (Genre: {{ album.genre.name }})</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if genre_results %}
+            <h2>Genres</h2>
+            <ul>
+                {% for genre in genre_results %}
+                    <li>{{ genre.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    {% else %}
+        <p>No search query entered.</p>
+    {% endif %}
+</body>
+</html>

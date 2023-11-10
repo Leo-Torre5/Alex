@@ -41,6 +41,8 @@ class Album(models.Model):
     """Model representing an Album."""
     title = models.CharField(max_length=200, null=True)
     album_image = models.ImageField(upload_to='images/', null=True, blank=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
     # album_image = models.ImageField(upload_to='images/', null=True, blank=True)
 
@@ -105,3 +107,4 @@ class AlbumInstance(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.id} ({self.album.title})'
+

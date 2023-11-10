@@ -42,12 +42,16 @@
                     <a class="nav-link" href="#">Policies</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search"  >
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-dark "  type="submit">Search</button>
-            </form>
+            <form class="d-flex" role="search" action="/MelodyMatrix/templates/search_results.html" method="get">
+    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+    <button class="btn btn-dark" type="submit">Search</button>
+</form>
+
+
 
         </div>
+
+
         <!--Display Login/Logout right-justified in navbar -->
    <ul class="nav navbar-nav ml-auto">
         {% if user.is_authenticated %}
