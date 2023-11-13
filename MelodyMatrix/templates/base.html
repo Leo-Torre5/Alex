@@ -44,8 +44,15 @@
             </ul>
      <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
     <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+    <select name="filter">
+        <option value="all">All</option>
+        <option value="artists">Artists</option>
+        <option value="albums">Albums</option>
+        <option value="genres">Genres</option>
+    </select>
     <button class="btn btn-dark" type="submit">Search</button>
 </form>
+
 
 
 

@@ -8,34 +8,34 @@
 <body>
     <h1>Search Results for "{{ search_query }}"</h1>
 
-    {% if artist_results %}
+    {% if results.artists %}
         <h2>Artists:</h2>
         <ul>
-            {% for artist in artist_results %}
+            {% for artist in results.artists %}
                 <li><a href="{% url 'artist_detail' artist.id %}">{{ artist.artist_name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    {% if album_results %}
+    {% if results.albums %}
         <h2>Albums:</h2>
         <ul>
-            {% for album in album_results %}
+            {% for album in results.albums %}
                 <li><a href="{% url 'album_detail' album.id %}">{{ album.title }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    {% if genre_results %}
+    {% if results.genres %}
         <h2>Genres:</h2>
         <ul>
-            {% for genre in genre_results %}
+            {% for genre in results.genres %}
                 <li><a href="{% url 'genre_detail' genre.id %}">{{ genre.name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    {% if not artist_results and not album_results and not genre_results %}
+    {% if not results.artists and not results.albums and not results.genres %}
         <p>No results found.</p>
     {% endif %}
 </body>
