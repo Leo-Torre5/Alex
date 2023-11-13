@@ -4,7 +4,23 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 
+
+def search(request):
+    search_query = request.GET.get('query', '')
+    if search_query:
+        # Perform a case-insensitive search on the name field of artists,
+        # title field of albums, and name field of genres
+        artist_results = Artist.objects.filter(
+            Q(artist_name__icontains=search_query) | Q(summary__icontains=search_query))
+        album_results = Album.objects.filter(title__icontains=search_query)
+        genre_results = Genre.objects.filter(name__icontains=search_query)
+        return render(request, 'search_results.html',
+                      {'search_query': search_query, 'artist_results': artist_results, 'album_results': album_results,
+                       'genre_results': genre_results})
+
+    return render(request, 'search_results.html', {'search_query': search_query})
 
 
 def index(request):
@@ -63,16 +79,4 @@ class ArtistDetailView(generic.DetailView):
         post = form.save(commit=False)
         post.save()
         return HttpResponseRedirect(reverse('artist_list'))
-
-
-def search(request):
-    search_query = request.GET.get('query', '')
-    if search_query:
-        # Perform a case-insensitive search on the name field of artists,
-        # title field of albums, and name field of genres
-        artist_results = Artist.objects.filter(name__icontains=search_query)
-        album_results = Album.objects.filter(title__icontains=search_query)
-        genre_results = Genre.objects.filter(name__icontains=search_query)
-        return render(request, 'search_results.html', {'search_query': search_query, 'artist_results': artist_results, 'album_results': album_results, 'genre_results': genre_results})
-    return render(request, 'search_results.html', {'search_query': search_query})
 
